@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triad Retail — Retail activations designed for the realities of travel retail</title>
+<meta name="description" content="We help premium brands move shoppers from find to choose to buy through commercially smart retail activation built for fast moving travel environments.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-warm: #0e0c0a;
+    --bg-deep: #060615;
+    --bg-elev: #141414;
+    --bg-light: #ffffff;
+    --bg-cream: #f5f2eb;
+    --bg-cream-deep: #ebe6dc;
+    --bg-purple: #4e008e;
+    --bg-purple-deep: #2d004f;
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.6);
+    --text-faint: rgba(255,255,255,0.35);
+    --text-dark: #0a0a0a;
+    --text-dark-dim: rgba(10,10,10,0.65);
+    --rule: rgba(255,255,255,0.12);
+    --rule-warm: rgba(212,180,135,0.15);
+    --rule-dark: rgba(10,10,10,0.12);
+    --accent: #7B2CBF;                 /* unified brand purple, works on dark & light */
+    --accent-hover: #9D4EDD;            /* lighter hover tint */
+    --accent-soft: rgba(123,44,191,0.15);
+    --accent-purple: #7B2CBF;           /* alias kept for compatibility */
+    --accent-purple-light: #7B2CBF;     /* alias kept for compatibility */
+    --font: 'Manrope', -apple-system, sans-serif;
+    --max-width: 1400px;
+    --gutter: clamp(20px, 5vw, 80px);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-weight: 300; line-height: 1.5; overflow-x: hidden; }
+  ::selection { background: var(--accent-purple); color: white; }
+
+  /* NAV — bigger bolder headings */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px var(--gutter); display: flex; align-items: center; justify-content: space-between; background: rgba(20,0,40,0.55); backdrop-filter: blur(24px) saturate(140%); -webkit-backdrop-filter: blur(24px) saturate(140%); border-bottom: 1px solid var(--rule); transition: padding 0.3s ease, background 0.3s ease; }
+  .nav.scrolled { padding: 16px var(--gutter); background: rgba(10,10,10,0.92); }
+  .nav-logo img { height: 32px; display: block; }
+  .nav-links { display: flex; gap: 8px; align-items: center; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 15px; font-weight: 600; letter-spacing: 0.01em; transition: all 0.2s ease; padding: 11px 22px; border-radius: 100px; border: 1px solid transparent; }
+  .nav-links a:hover { background: var(--accent); color: #ffffff; border-color: var(--accent); }
+  .nav-cta { color: var(--text) !important; border: 1px solid rgba(255,255,255,0.35) !important; padding: 11px 22px; border-radius: 100px; transition: all 0.2s ease; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--accent) !important; color: #ffffff !important; border-color: var(--accent) !important; }
+  .nav-toggle { display: none; background: none; border: none; color: white; cursor: pointer; }
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .nav-links.open { display: flex; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--bg); padding: 24px var(--gutter); gap: 20px; border-bottom: 1px solid var(--rule); }
+  }
+
+  /* HERO — two columns: text left, auto-playing image carousel right */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px var(--gutter) 80px; position: relative; overflow: hidden; background: radial-gradient(ellipse 80% 60% at 20% 20%, rgba(139,63,196,0.55) 0%, transparent 65%), radial-gradient(ellipse 70% 50% at 90% 90%, rgba(45,0,79,0.85) 0%, transparent 60%), var(--bg-purple); }
+  .hero::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, transparent 0, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 3px); pointer-events: none; }
+  .hero-inner { width: 100%; max-width: var(--max-width); margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: stretch; position: relative; z-index: 2; }
+  @media (max-width: 960px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; align-items: center; }
+  }
+  .hero-text { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center; }
+  .hero h1 { font-size: clamp(40px, 5.5vw, 76px); font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 0; opacity: 0; animation: fadeUp 0.9s ease 0.2s forwards; }
+  .hero h1 .pop { color: #ffffff; font-weight: 800; font-style: normal; position: relative; display: inline-block; }
+  .hero h1 .pop::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 4px; background: var(--accent-hover); border-radius: 2px; opacity: 0; animation: fadeUp 1s ease 0.6s forwards; }
+  .hero-sub { font-size: clamp(17px, 1.3vw, 20px); font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.9); max-width: 600px; margin-top: 36px; opacity: 0; animation: fadeUp 0.9s ease 0.4s forwards; }
+  .hero-media { position: relative; width: 100%; height: 100%; min-height: 360px; border-radius: 4px; overflow: hidden; opacity: 0; animation: fadeUp 1s ease 0.5s forwards; box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08); align-self: stretch; }
+  @media (max-width: 960px) {
+    .hero-media { aspect-ratio: 16 / 10; height: auto; min-height: 0; align-self: auto; }
+  }
+  .hero-media-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.2s ease; }
+  .hero-media-slide.active { opacity: 1; }
+  .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(20,0,40,0.85) 100%); pointer-events: none; z-index: 2; }
+  .hero-media-caption { position: absolute; left: 24px; right: 24px; bottom: 36px; z-index: 3; color: #ffffff; font-size: 14px; font-weight: 500; letter-spacing: 0.02em; line-height: 1.4; max-width: 600px; min-height: 40px; }
+  .hero-media-caption-text { position: absolute; left: 0; right: 0; top: 0; opacity: 0; transition: opacity 0.6s ease; }
+  .hero-media-caption-text.active { opacity: 0.95; }
+  .hero-media-caption-text::before { content: ""; display: inline-block; width: 24px; height: 1px; background: var(--accent-hover); vertical-align: middle; margin-right: 12px; margin-bottom: 3px; }
+  .hero-media-progress { position: absolute; bottom: 16px; left: 24px; right: 24px; display: flex; gap: 6px; z-index: 3; }
+  .hero-progress-bar { flex: 1; height: 2px; background: rgba(255,255,255,0.25); overflow: hidden; border-radius: 1px; }
+  .hero-progress-bar-fill { height: 100%; width: 0; background: #ffffff; transition: width 0.1s linear; }
+  .hero-progress-bar.complete .hero-progress-bar-fill { width: 100%; }
+  .hero-progress-bar.active .hero-progress-bar-fill { animation: progressFill 8s linear forwards; }
+  @keyframes progressFill { from { width: 0; } to { width: 100%; } }
+  .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.32em; color: rgba(255,255,255,0.6); text-transform: uppercase; opacity: 0; animation: fadeUp 1s ease 1s forwards; z-index: 2; font-weight: 500; }
+  .hero-scroll::after { content: ""; display: block; width: 1px; height: 28px; background: rgba(255,255,255,0.7); margin: 10px auto 0; animation: scrollLine 2s ease-in-out infinite; opacity: 0.6; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scrollLine { 0%, 100% { transform: scaleY(1); transform-origin: top; opacity: 0.4; } 50% { transform: scaleY(1.4); opacity: 1; } }
+
+  /* SECTIONS */
+  section { padding: clamp(80px, 12vw, 160px) var(--gutter); }
+  section.light { background: var(--bg-light); color: var(--text-dark); }
+  section.cream { background: var(--bg-cream); color: var(--text-dark); }
+  .container { max-width: var(--max-width); margin: 0 auto; }
+  .section-label { display: flex; align-items: center; gap: 16px; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 48px; font-weight: 600; }
+  section.light .section-label, section.cream .section-label { color: var(--text-dark-dim); }
+  .section-label .num { color: var(--accent-purple-light); font-weight: 700; }
+  section.light .section-label .num, section.cream .section-label .num { color: var(--accent-purple); }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--rule); max-width: 200px; }
+  section.light .section-label::after, section.cream .section-label::after { background: var(--rule-dark); }
+  .section-title { font-size: clamp(34px, 5.2vw, 68px); font-weight: 800; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 32px; max-width: 900px; }
+  .section-title .pop { color: var(--accent-purple-light); font-style: normal; font-weight: 800; }
+  section.light .section-title .pop, section.cream .section-title .pop { color: var(--accent-purple); }
+  .section-lead { font-size: clamp(17px, 1.4vw, 21px); line-height: 1.6; max-width: 760px; margin-bottom: 64px; font-weight: 400; }
+  section:not(.light):not(.cream) .section-lead { color: var(--text-dim); }
+
+  /* WHO — bridges purple to dark with a soft transition */
+  #who { background: linear-gradient(180deg, var(--bg-purple-deep) 0%, var(--bg-warm) 35%, var(--bg-warm) 100%); position: relative; }
+  .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  @media (max-width: 860px) { .who-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .who-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(200,166,232,0.18); border: 1px solid rgba(200,166,232,0.18); }
+  .stat { background: var(--bg-warm); padding: 36px; }
+  .stat-num { font-size: 52px; font-weight: 700; line-height: 1; letter-spacing: -0.04em; margin-bottom: 10px; }
+  .stat-num .pop { color: var(--accent-purple-light); }
+  .stat-label { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+
+  /* WHAT WE DO — bigger tiles, purple hover */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule-dark); border: 1px solid var(--rule-dark); margin-top: 24px; }
+  @media (max-width: 860px) { .services { grid-template-columns: 1fr; } }
+  .service { background: var(--bg-cream); padding: 64px 48px; transition: background 0.4s ease, color 0.4s ease; position: relative; cursor: default; }
+  .service:hover { background: var(--accent); color: var(--text); }
+  .service:hover .service-num { color: #ffffff; }
+  .service:hover .service-desc { color: rgba(255,255,255,0.9); }
+  .service-num { font-size: 12px; color: var(--accent-purple); letter-spacing: 0.2em; margin-bottom: 28px; font-weight: 600; transition: color 0.4s ease; }
+  .service-title { font-size: 30px; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.015em; line-height: 1.1; }
+  .service-desc { font-size: 16px; line-height: 1.6; color: var(--text-dark-dim); font-weight: 400; transition: color 0.4s ease; }
+
+  /* WHY — bigger box text */
+  .why-section { background: radial-gradient(ellipse 80% 60% at 10% 10%, rgba(78,0,142,0.22) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 90% 100%, rgba(19,65,187,0.12) 0%, transparent 55%), var(--bg-deep); position: relative; overflow: hidden; }
+  .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 56px 80px; margin-top: 24px; position: relative; z-index: 1; }
+  @media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .why-item { padding-top: 28px; border-top: 1px solid var(--rule); }
+  .why-item-num { font-size: 12px; color: var(--accent-purple-light); letter-spacing: 0.2em; margin-bottom: 20px; font-weight: 600; }
+  .why-item h3 { font-size: 26px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; line-height: 1.2; }
+  .why-item p { font-size: 17px; line-height: 1.6; color: rgba(255,255,255,0.75); font-weight: 400; }
+
+  /* WORK */
+  .work-section { background: var(--bg-cream); color: var(--text-dark); }
+  .case-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+  .case { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; background: var(--bg); color: var(--text); overflow: hidden; position: relative; min-height: 520px; }
+  .case.reverse { grid-template-columns: 1fr 1.2fr; }
+  .case.reverse .case-media { order: 2; }
+  .case.reverse .case-body { order: 1; }
+  @media (max-width: 860px) {
+    .case, .case.reverse { grid-template-columns: 1fr; }
+    .case.reverse .case-media { order: 1; }
+    .case.reverse .case-body { order: 2; }
+  }
+
+  /* CAROUSEL */
+  .case-media { position: relative; min-height: 380px; background: #000; overflow: hidden; }
+  .carousel-track { position: relative; width: 100%; height: 100%; min-height: 380px; }
+  .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; background-size: cover; background-position: center; }
+  .carousel-slide.active { opacity: 1; }
+  .carousel-controls { position: absolute; bottom: 20px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 3; }
+  .carousel-dots { display: flex; gap: 8px; }
+  .carousel-dot { width: 24px; height: 2px; background: rgba(255,255,255,0.3); border: none; cursor: pointer; padding: 0; transition: background 0.3s ease; }
+  .carousel-dot.active { background: var(--accent-purple-light); }
+  .carousel-dot:hover { background: rgba(255,255,255,0.6); }
+  .carousel-nav { display: flex; gap: 4px; }
+  .carousel-btn { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.25); background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; border-radius: 50%; }
+  .carousel-btn:hover { background: var(--accent-purple-light); color: var(--bg); border-color: var(--accent-purple-light); }
+  .carousel-counter { position: absolute; top: 20px; right: 20px; font-size: 11px; letter-spacing: 0.2em; color: rgba(255,255,255,0.7); z-index: 3; background: rgba(0,0,0,0.4); padding: 6px 12px; backdrop-filter: blur(8px); border-radius: 100px; font-weight: 500; }
+
+  .case-body { padding: 64px 56px; display: flex; flex-direction: column; justify-content: space-between; background: var(--bg); position: relative; }
+  .case-body::before { content: ""; position: absolute; top: 64px; left: 56px; width: 32px; height: 1px; background: var(--accent-purple-light); }
+  @media (max-width: 860px) {
+    .case-body { padding: 48px 32px; }
+    .case-body::before { left: 32px; top: 48px; }
+  }
+  .case-meta { display: flex; gap: 16px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 32px; padding-top: 12px; font-weight: 500; }
+  .case-meta span { position: relative; }
+  .case-meta span + span::before { content: ""; position: absolute; left: -10px; top: 50%; width: 2px; height: 2px; background: var(--accent-purple-light); border-radius: 50%; }
+  .case-client { font-size: 13px; color: var(--accent-purple-light); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 18px; font-weight: 600; }
+  .case-title { font-size: clamp(30px, 3.2vw, 42px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .case-desc { font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.75); margin-bottom: 40px; font-weight: 400; }
+  .case-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .case-tag { font-size: 12px; padding: 7px 16px; border: 1px solid var(--rule); border-radius: 100px; letter-spacing: 0.08em; color: rgba(255,255,255,0.75); transition: all 0.2s ease; font-weight: 500; }
+  .case-tag:hover { border-color: var(--accent-purple-light); color: var(--accent-purple-light); }
+
+  /* THINKING — matched sizing */
+  .thought-section { background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(78,0,142,0.12) 0%, transparent 60%), var(--bg); border-top: 1px solid var(--rule); }
+  .thought-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px; }
+  @media (max-width: 860px) { .thought-grid { grid-template-columns: 1fr; } }
+  .thought-card { padding: 48px 36px; border: 1px solid var(--rule); transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; background: rgba(20,20,20,0.4); }
+  .thought-card::after { content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--accent-purple-light); transition: width 0.4s ease; }
+  .thought-card:hover { border-color: rgba(123,44,191,0.5); transform: translateY(-2px); background: rgba(123,44,191,0.12); }
+  .thought-card:hover::after { width: 100%; }
+  .thought-cat { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-purple-light); margin-bottom: 28px; font-weight: 600; }
+  .thought-title { font-size: 22px; font-weight: 700; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .thought-meta { font-size: 13px; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; font-weight: 500; }
+  .coming-soon { background: rgba(20,20,20,0.5); border: 1px solid var(--rule); padding: 32px; margin-top: 40px; text-align: center; }
+  .coming-soon p { font-size: 14px; color: var(--text-dim); letter-spacing: 0.04em; }
+  .coming-soon a { color: var(--accent-purple-light); text-decoration: none; border-bottom: 1px solid var(--accent-purple-light); padding-bottom: 1px; font-weight: 500; }
+
+  /* CONTACT */
+  .contact-section { background: var(--bg-cream); color: var(--text-dark); padding: clamp(80px, 12vw, 160px) var(--gutter); position: relative; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .contact-title { font-size: clamp(40px, 6vw, 80px); font-weight: 800; line-height: 1; letter-spacing: -0.03em; margin-bottom: 32px; }
+  .contact-title .pop { color: var(--accent-purple); font-style: normal; font-weight: 800; }
+  .contact-details { border-top: 1px solid var(--rule-dark); }
+  .contact-row { display: grid; grid-template-columns: 140px 1fr; padding: 24px 0; border-bottom: 1px solid var(--rule-dark); align-items: baseline; }
+  .contact-label { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dark-dim); font-weight: 600; }
+  .contact-value { font-size: 17px; line-height: 1.5; font-weight: 400; }
+  .contact-value a { color: var(--text-dark); text-decoration: none; border-bottom: 1px solid var(--text-dark); padding-bottom: 2px; transition: all 0.2s ease; }
+  .contact-value a:hover { color: var(--accent-purple); border-color: var(--accent-purple); }
+
+  /* FOOTER */
+  .footer { background: var(--bg); padding: 64px var(--gutter) 32px; border-top: 1px solid var(--rule); position: relative; }
+  .footer::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent 0%, var(--accent-purple-light) 50%, transparent 100%); opacity: 0.4; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+  @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  .footer-logo img { height: 28px; margin-bottom: 16px; }
+  .footer-tag { font-size: 14px; color: var(--text-dim); max-width: 320px; line-height: 1.5; }
+  .footer-col h4 { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-purple-light); margin-bottom: 20px; font-weight: 600; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { color: var(--text); text-decoration: none; font-size: 15px; transition: color 0.2s ease; font-weight: 400; }
+  .footer-col a:hover { color: var(--accent-purple-light); }
+  .footer-bottom { padding-top: 32px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.45); flex-wrap: wrap; gap: 16px; }
+  .footer-bottom a { color: rgba(255,255,255,0.45); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--accent-purple-light); }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-logo"><img src="assets/logo-white.png" alt="Triad Retail"></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#who">Who we are</a></li>
+    <li><a href="#what">What we do</a></li>
+    <li><a href="#why">Why travel retail</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#thinking">Thinking</a></li>
+    <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>Retail activations<br>designed for the <span class="pop">realities</span><br>of travel retail.</h1>
+      <p class="hero-sub">We help premium brands move shoppers from find to choose to buy. Commercially smart retail activation built for fast moving travel environments, and the retail spaces beyond.</p>
+    </div>
+    <div class="hero-media" id="heroMedia">
+      <div class="hero-media-slide active" style="background-image: url('assets/hero-1.jpg');"></div>
+      <div class="hero-media-slide" style="background-image: url('assets/hero-2.jpg');"></div>
+      <div class="hero-media-slide" style="background-image: url('assets/hero-3.jpg');"></div>
+      <div class="hero-media-slide" style="background-image: url('assets/hero-4.jpg');"></div>
+      <div class="hero-media-slide" style="background-image: url('assets/hero-5.jpg');"></div>
+      <div class="hero-media-slide" style="background-image: url('assets/hero-6.jpg');"></div>
+      <div class="hero-media-slide" style="background-image: url('assets/hero-7.jpg');"></div>
+      <div class="hero-media-slide" style="background-image: url('assets/hero-8.jpg');"></div>
+      <div class="hero-media-caption">
+        <span class="hero-media-caption-text active">Laphroaig travel retail counter and gifting display</span>
+        <span class="hero-media-caption-text">Maker's Mark permanent visibility wallbay</span>
+        <span class="hero-media-caption-text">Laphroaig tasting activation in airport</span>
+        <span class="hero-media-caption-text">Maker's Mark immersive bourbon experience zone</span>
+        <span class="hero-media-caption-text">The House of Suntory premium island counter</span>
+        <span class="hero-media-caption-text">Suntory Time celebration of the spirits of Japan</span>
+        <span class="hero-media-caption-text">Bowmore Islay luxury travel retail showcase</span>
+        <span class="hero-media-caption-text">Suntory Time travel retail kiosk and display</span>
+      </div>
+      <div class="hero-media-progress">
+        <div class="hero-progress-bar active"><div class="hero-progress-bar-fill"></div></div>
+        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
+        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
+        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
+        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
+        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
+        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
+        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<section id="who">
+  <div class="container">
+    <div class="section-label"><span class="num">01</span> Who we are</div>
+    <div class="who-grid">
+      <div>
+        <h2 class="section-title">Premium retail activation, <span class="pop">without the big agency baggage.</span></h2>
+        <p class="section-lead">We specialise in retail activation built around how people actually shop. Travel retail is our home turf, but the same thinking drives our work for major brands in supermarkets, garden centres and high street retail.</p>
+        <p class="section-lead">No layers. No waffle. Experienced people doing the work properly.</p>
+      </div>
+      <div class="who-stats">
+        <div class="stat"><div class="stat-num"><span class="pop">20</span>+</div><div class="stat-label">Years in travel retail</div></div>
+        <div class="stat"><div class="stat-num"><span class="pop">4</span></div><div class="stat-label">Hands on owner / directors</div></div>
+        <div class="stat"><div class="stat-num"><span class="pop">30</span>+</div><div class="stat-label">Premium brands worked with</div></div>
+        <div class="stat"><div class="stat-num"><span class="pop">1</span></div><div class="stat-label">Senior contact, end to end</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cream" id="what">
+  <div class="container">
+    <div class="section-label"><span class="num">02</span> What we do</div>
+    <h2 class="section-title">Six disciplines.<br><span class="pop">One commercial outcome.</span></h2>
+    <p class="section-lead" style="color: var(--text-dark-dim);">Built to flex across travel retail, supermarkets, garden centres and high street brand environments. Tactical launches, full shopper experiences, and everything in between.</p>
+    <div class="services">
+      <div class="service"><div class="service-num">01 / GTR</div><div class="service-title">Activation</div><div class="service-desc">Permanent and tactical activations that earn attention across travel retail and the high street, then convert it into sales.</div></div>
+      <div class="service"><div class="service-num">02 / GTR</div><div class="service-title">Experience</div><div class="service-desc">Immersive moments that let travellers discover, sample and engage. Designed to drive purchase, not just impressions.</div></div>
+      <div class="service"><div class="service-num">03 / GTR</div><div class="service-title">Shopper</div><div class="service-desc">Insight led design grounded in real shopper behaviour. We make brands easier to notice, navigate and buy.</div></div>
+      <div class="service"><div class="service-num">04 / GTR</div><div class="service-title">Retail</div><div class="service-desc">Fixtures, displays and in store environments engineered for visibility, rollout and operational reality.</div></div>
+      <div class="service"><div class="service-num">05 / GTR</div><div class="service-title">Digital</div><div class="service-desc">Screens, interactives and connected experiences that scale across locations and add measurable value.</div></div>
+      <div class="service"><div class="service-num">06 / GTR</div><div class="service-title">Production</div><div class="service-desc">Hands on production delivered with trusted partners. Built for speed, precision, and global rollout.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="why-section" id="why">
+  <div class="container">
+    <div class="section-label"><span class="num">03</span> Why travel retail is different</div>
+    <h2 class="section-title">Different shoppers.<br>Different rules.<br><span class="pop">Different thinking.</span></h2>
+    <p class="section-lead">Travel retail is not just retail in an airport. The shopper, the moment, and the commercial mechanics are fundamentally different. We are built for it.</p>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-item-num">01</div><h3>Travellers, not shoppers</h3><p>The traveller is distracted, time pressured and emotionally primed. Activation has to work in seconds, not minutes.</p></div>
+      <div class="why-item"><div class="why-item-num">02</div><h3>Speed and rollout reality</h3><p>Concepts have to survive multi location rollout, retailer requirements, and tight install windows. We design for that from the brief.</p></div>
+      <div class="why-item"><div class="why-item-num">03</div><h3>Retailer realities</h3><p>Generalist retailers do not get the politics, operations and commercial realities of working with global operators. We do.</p></div>
+      <div class="why-item"><div class="why-item-num">04</div><h3>Commercial first creative</h3><p>We think about conversion, visibility and momentum before we think about awards. Beautiful work that moves the numbers.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="work-section" id="work">
+  <div class="container">
+    <div class="section-label" style="color: var(--text-dark-dim);"><span class="num">04</span> Selected work</div>
+    <h2 class="section-title">Work that <span class="pop">moves</span>.</h2>
+    <p class="section-lead" style="color: var(--text-dark-dim);">A snapshot of recent activations across travel retail and premium brand environments.</p>
+    <div class="case-grid">
+
+      <article class="case">
+        <div class="case-media" data-carousel>
+          <div class="carousel-track">
+            <div class="carousel-slide active" style="background-image: url('assets/case-makers-mark-1.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-makers-mark-2.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-makers-mark-3.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-makers-mark-4.jpg');"></div>
+          </div>
+          <div class="carousel-counter"><span class="cur">1</span> / <span class="tot">4</span></div>
+          <div class="carousel-controls">
+            <div class="carousel-dots"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="carousel-btn next" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <div class="case-meta"><span>2024</span><span>Frankfurt Airport</span></div>
+            <div class="case-client">Beam Suntory — Maker's Mark</div>
+            <h3 class="case-title">A balanced flavour, brought to life in transit.</h3>
+            <p class="case-desc">A premium activation for Maker's Mark at Frankfurt Airport, designed to celebrate the brand's Kentucky heritage while driving discovery, personalisation and conversion among international travellers.</p>
+          </div>
+          <div class="case-tags">
+            <span class="case-tag">Activation</span>
+            <span class="case-tag">Experience</span>
+            <span class="case-tag">Premium spirits</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="case reverse">
+        <div class="case-media" data-carousel>
+          <div class="carousel-track">
+            <div class="carousel-slide active" style="background-image: url('assets/case-fragrance-1.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-fragrance-2.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-fragrance-3.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-fragrance-4.jpg');"></div>
+          </div>
+          <div class="carousel-counter"><span class="cur">1</span> / <span class="tot">4</span></div>
+          <div class="carousel-controls">
+            <div class="carousel-dots"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="carousel-btn next" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <div class="case-meta"><span>2024</span><span>Singapore Changi</span></div>
+            <div class="case-client">Luxury fragrance house</div>
+            <h3 class="case-title">A scent led experience for the Asian luxury traveller.</h3>
+            <p class="case-desc">A standout fragrance activation in one of the world's most competitive duty free environments. Combining immersive sensory design with elegant retail mechanics to drive trial and basket size.</p>
+          </div>
+          <div class="case-tags">
+            <span class="case-tag">Experience</span>
+            <span class="case-tag">Shopper</span>
+            <span class="case-tag">Luxury beauty</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-media" data-carousel>
+          <div class="carousel-track">
+            <div class="carousel-slide active" style="background-image: url('assets/case-domestic-1.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-domestic-2.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-domestic-3.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/case-domestic-4.jpg');"></div>
+          </div>
+          <div class="carousel-counter"><span class="cur">1</span> / <span class="tot">4</span></div>
+          <div class="carousel-controls">
+            <div class="carousel-dots"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="carousel-btn next" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+          <div>
+            <div class="case-meta"><span>2024</span><span>UK Department Store</span></div>
+            <div class="case-client">Premium lifestyle brand</div>
+            <h3 class="case-title">Bringing travel retail thinking to the high street.</h3>
+            <p class="case-desc">A flagship in store activation that proved travel retail's discipline, speed, conversion focus, and operational rigour, translates directly into domestic premium retail environments.</p>
+          </div>
+          <div class="case-tags">
+            <span class="case-tag">Retail</span>
+            <span class="case-tag">Digital</span>
+            <span class="case-tag">Domestic retail</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="thought-section" id="thinking">
+  <div class="container">
+    <div class="section-label"><span class="num">05</span> Thinking</div>
+    <h2 class="section-title">Sharp views on a <span class="pop">fast moving</span> category.</h2>
+    <p class="section-lead">A space for short, opinionated pieces on travel retail, shopper behaviour, and the commercial mechanics of activation.</p>
+    <div class="thought-grid">
+      <div class="thought-card"><div class="thought-cat">Shopper insight</div><h3 class="thought-title">Why travel retail conversion does not follow the rules.</h3><div class="thought-meta">Coming soon · 4 min read</div></div>
+      <div class="thought-card"><div class="thought-cat">Activation</div><h3 class="thought-title">Three mistakes premium brands make in duty free.</h3><div class="thought-meta">Coming soon · 5 min read</div></div>
+      <div class="thought-card"><div class="thought-cat">Industry</div><h3 class="thought-title">Travel retail is changing. Are your fixtures keeping up?</h3><div class="thought-meta">Coming soon · 3 min read</div></div>
+    </div>
+    <div class="coming-soon"><p>Articles launching shortly. Want early access? <a href="#contact">Get in touch.</a></p></div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-label" style="color: var(--text-dark-dim);"><span class="num">06</span> Get in touch</div>
+    <div class="contact-grid">
+      <div>
+        <h2 class="contact-title">Let's talk <span class="pop">retail.</span></h2>
+        <p class="section-lead" style="color: var(--text-dark-dim);">Whether you are scoping a tactical launch or a full shopper experience, we would love to hear what you are working on.</p>
+      </div>
+      <div class="contact-details">
+        <div class="contact-row"><div class="contact-label">General</div><div class="contact-value"><a href="mailto:hello@triadretail.co.uk">hello@triadretail.co.uk</a></div></div>
+        <div class="contact-row"><div class="contact-label">New business</div><div class="contact-value"><a href="mailto:newbusiness@triadretail.co.uk">newbusiness@triadretail.co.uk</a></div></div>
+        <div class="contact-row"><div class="contact-label">Phone</div><div class="contact-value"><a href="tel:+441604771100">01604 771100</a></div></div>
+        <div class="contact-row"><div class="contact-label">Studio</div><div class="contact-value">Triad Limited<br>The Stables, Holdenby House<br>Holdenby, Northants<br>NN6 8DJ</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-logo"><img src="assets/logo-white.png" alt="Triad Retail"><p class="footer-tag">Retail activations for premium brands. Travel retail led. Built for any retail environment.</p></div>
+      <div class="footer-col"><h4>Site</h4><ul><li><a href="#who">Who we are</a></li><li><a href="#what">What we do</a></li><li><a href="#why">Why travel retail</a></li><li><a href="#work">Work</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:hello@triadretail.co.uk">hello@triadretail.co.uk</a></li><li><a href="tel:+441604771100">01604 771100</a></li></ul></div>
+      <div class="footer-col"><h4>Connect</h4><ul><li><a href="https://triadcreative.co.uk" target="_blank">Triad Creative</a></li><li><a href="#" target="_blank">LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Triad Limited. A division of <a href="https://triadcreative.co.uk">Triad Creative</a>.</div>
+      <div><a href="#">Privacy</a> · <a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); });
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // Hero auto-playing image carousel
+  (function initHeroCarousel() {
+    const heroMedia = document.getElementById('heroMedia');
+    if (!heroMedia) return;
+    const slides = heroMedia.querySelectorAll('.hero-media-slide');
+    const captions = heroMedia.querySelectorAll('.hero-media-caption-text');
+    const bars = heroMedia.querySelectorAll('.hero-progress-bar');
+    let current = 0;
+    const SLIDE_MS = 8000;
+
+    function advance() {
+      const next = (current + 1) % slides.length;
+      slides[current].classList.remove('active');
+      slides[next].classList.add('active');
+      if (captions[current]) captions[current].classList.remove('active');
+      if (captions[next]) captions[next].classList.add('active');
+      bars[current].classList.remove('active');
+      bars[current].classList.add('complete');
+      // Reset all bars when starting a new cycle
+      if (next === 0) {
+        bars.forEach(b => { b.classList.remove('complete'); b.classList.remove('active'); });
+        // Force reflow so animation restarts cleanly
+        void bars[0].offsetWidth;
+      }
+      bars[next].classList.add('active');
+      current = next;
+    }
+
+    setInterval(advance, SLIDE_MS);
+  })();
+
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dotsContainer = carousel.querySelector('.carousel-dots');
+    const prevBtn = carousel.querySelector('.prev');
+    const nextBtn = carousel.querySelector('.next');
+    const counterCur = carousel.querySelector('.carousel-counter .cur');
+    let current = 0;
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.addEventListener('click', () => go(i));
+      dotsContainer.appendChild(dot);
+    });
+    const dots = carousel.querySelectorAll('.carousel-dot');
+    function go(i) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (i + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      if (counterCur) counterCur.textContent = current + 1;
+    }
+    prevBtn.addEventListener('click', () => go(current - 1));
+    nextBtn.addEventListener('click', () => go(current + 1));
+  });
+</script>
+
+</body>
+</html>
