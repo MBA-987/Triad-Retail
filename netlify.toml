@@ -1,0 +1,7 @@
+# Netlify configuration for triadretail.co.uk
+# The "gate" edge function puts a password landing page in front of the whole site.
+# To remove the password later: delete the [[edge_functions]] block below (or the whole file).
+
+[[edge_functions]]
+  path = "/*"
+  function = "gate"
