@@ -128,7 +128,7 @@
   .hero-media.paused .hero-progress-bar.active .hero-progress-bar-fill { animation-play-state: paused; }
   .hero-progress-bar-fill { height: 100%; width: 0; background: #ffffff; transition: width 0.1s linear; }
   .hero-progress-bar.complete .hero-progress-bar-fill { width: 100%; }
-  .hero-progress-bar.active .hero-progress-bar-fill { animation: progressFill 8s linear forwards; }
+  .hero-progress-bar.active .hero-progress-bar-fill { animation: progressFill 5s linear forwards; }
   @keyframes progressFill { from { width: 0; } to { width: 100%; } }
   .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.32em; color: rgba(10,10,10,0.65); text-transform: uppercase; opacity: 0; animation: fadeUp 1s ease 1s forwards; z-index: 2; font-weight: 500; }
   .hero-scroll::after { content: ""; display: block; width: 1px; height: 28px; background: rgba(10,10,10,0.65); margin: 10px auto 0; animation: scrollLine 2s ease-in-out infinite; opacity: 0.6; }
@@ -306,19 +306,17 @@
       <p class="hero-sub">Creative, digital and activation specialists helping brands win attention, drive conversion and grow sales in travel retail. For brands that need results, not just visibility.</p>
     </div>
     <div class="hero-media" id="heroMedia" role="region" aria-roledescription="carousel" aria-label="Selected work">
-      <div class="hero-media-slide active" role="group" aria-roledescription="slide" aria-label="1 of 5"><img src="assets/hero-3.webp" width="1600" height="1000" alt="Laphroaig tasting activation with travellers at an airport counter" fetchpriority="high" decoding="async"></div>
-      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="2 of 5"><img src="assets/hero-4.webp" width="1600" height="1000" alt="Maker's Mark immersive bourbon experience zone" loading="lazy" decoding="async"></div>
-      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="3 of 5"><img src="assets/hero-5.webp" width="1600" height="1000" alt="The House of Suntory premium island counter" loading="lazy" decoding="async"></div>
-      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="4 of 5"><img src="assets/hero-7.webp" width="1600" height="1000" alt="Bowmore Islay luxury travel retail showcase" loading="lazy" decoding="async"></div>
-      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="5 of 5"><img src="assets/hero-8.webp" width="1600" height="1000" alt="Suntory Time travel retail kiosk and display" loading="lazy" decoding="async"></div>
+      <div class="hero-media-slide active" role="group" aria-roledescription="slide" aria-label="1 of 4"><img src="assets/hero-5.webp" width="1600" height="1000" alt="The House of Suntory premium island counter" fetchpriority="high" decoding="async"></div>
+      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="2 of 4"><img src="assets/hero-4.webp" width="1600" height="1000" alt="Maker's Mark immersive bourbon experience zone" loading="lazy" decoding="async"></div>
+      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="3 of 4"><img src="assets/hero-7.webp" width="1600" height="1000" alt="Bowmore Islay luxury travel retail showcase" loading="lazy" decoding="async"></div>
+      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="4 of 4"><img src="assets/hero-8.webp" width="1600" height="1000" alt="Suntory Time travel retail kiosk and display" loading="lazy" decoding="async"></div>
       <div class="hero-media-nav">
         <button class="carousel-btn hero-prev" aria-label="Previous image"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
         <button class="carousel-btn hero-next" aria-label="Next image"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
       <div class="hero-media-caption" aria-live="polite">
-        <span class="hero-media-caption-text active">Laphroaig tasting activation in airport</span>
+        <span class="hero-media-caption-text active">The House of Suntory premium island counter</span>
         <span class="hero-media-caption-text">Maker's Mark immersive bourbon experience zone</span>
-        <span class="hero-media-caption-text">The House of Suntory premium island counter</span>
         <span class="hero-media-caption-text">Bowmore Islay luxury travel retail showcase</span>
         <span class="hero-media-caption-text">Suntory Time travel retail kiosk and display</span>
       </div>
@@ -327,7 +325,6 @@
         <button class="hero-progress-bar" aria-label="Show image 2"><span><span class="hero-progress-bar-fill"></span></span></button>
         <button class="hero-progress-bar" aria-label="Show image 3"><span><span class="hero-progress-bar-fill"></span></span></button>
         <button class="hero-progress-bar" aria-label="Show image 4"><span><span class="hero-progress-bar-fill"></span></span></button>
-        <button class="hero-progress-bar" aria-label="Show image 5"><span><span class="hero-progress-bar-fill"></span></span></button>
       </div>
     </div>
   </div>
@@ -527,7 +524,7 @@
     const slides = heroMedia.querySelectorAll('.hero-media-slide');
     const captions = heroMedia.querySelectorAll('.hero-media-caption-text');
     const bars = heroMedia.querySelectorAll('.hero-progress-bar');
-    const SLIDE_MS = 8000;
+    const SLIDE_MS = 5000;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let current = 0, timer = null, startedAt = 0, remaining = SLIDE_MS, paused = false;
 
