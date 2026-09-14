@@ -19,6 +19,24 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Triad Retail",
+  "url": "https://www.triadretail.co.uk/",
+  "logo": "https://www.triadretail.co.uk/assets/logo-black.png",
+  "image": "https://www.triadretail.co.uk/assets/og-image.jpg",
+  "description": "Retail activation, experience and shopper marketing specialists for premium brands in travel retail and beyond.",
+  "telephone": "+44 1604 771100",
+  "email": "hello@triadretail.co.uk",
+  "parentOrganization": { "@type": "Organization", "name": "Triad Limited", "url": "https://triadcreative.co.uk" },
+  "address": { "@type": "PostalAddress", "streetAddress": "The Stables, Holdenby House", "addressLocality": "Holdenby, Northampton", "addressRegion": "Northamptonshire", "postalCode": "NN6 8DJ", "addressCountry": "GB" },
+  "sameAs": ["https://www.linkedin.com/company/442189/", "https://triadcreative.co.uk"],
+  "areaServed": "Worldwide",
+  "knowsAbout": ["Travel retail", "Duty free activation", "Shopper marketing", "Retail design", "Brand experience"]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -45,7 +63,7 @@
     --accent-hover: #9D4EDD;            /* lighter hover tint */
     --accent-soft: rgba(123,44,191,0.15);
     --accent-purple: #7B2CBF;           /* alias kept for compatibility */
-    --accent-purple-light: #7B2CBF;     /* alias kept for compatibility */
+    --accent-purple-light: #A466E8;     /* lighter purple for small text on dark backgrounds (WCAG AA 5.3:1) */
     --font: 'Manrope', -apple-system, sans-serif;
     --max-width: 1400px;
     --gutter: clamp(20px, 5vw, 80px);
@@ -54,6 +72,14 @@
   html { scroll-behavior: smooth; }
   body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-weight: 300; line-height: 1.5; overflow-x: hidden; }
   ::selection { background: var(--accent-purple); color: white; }
+  :focus-visible { outline: 2px solid var(--accent-hover); outline-offset: 3px; }
+  .skip-link { position: absolute; left: 16px; top: -60px; z-index: 200; background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 100px; font-weight: 600; text-decoration: none; }
+  .skip-link:focus { top: 16px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
+    .hero h1, .hero-sub, .hero-media, .hero-scroll { opacity: 1; }
+  }
 
   /* NAV — bigger bolder headings */
   .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px var(--gutter); display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.85); backdrop-filter: blur(24px) saturate(140%); -webkit-backdrop-filter: blur(24px) saturate(140%); border-bottom: 1px solid var(--rule); transition: padding 0.3s ease, background 0.3s ease; }
@@ -86,21 +112,26 @@
   @media (max-width: 960px) {
     .hero-media { aspect-ratio: 16 / 10; height: auto; min-height: 0; align-self: auto; }
   }
-  .hero-media-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.2s ease; }
+  .hero-media-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+  .hero-media-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .hero-media-slide.active { opacity: 1; }
   .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(20,0,40,0.85) 100%); pointer-events: none; z-index: 2; }
-  .hero-media-caption { position: absolute; left: 24px; right: 24px; bottom: 36px; z-index: 3; color: #ffffff; font-size: 14px; font-weight: 500; letter-spacing: 0.02em; line-height: 1.4; max-width: 600px; min-height: 40px; }
+  .hero-media-caption { position: absolute; left: 24px; right: 24px; bottom: 40px; z-index: 3; color: #ffffff; font-size: 14px; font-weight: 500; letter-spacing: 0.02em; line-height: 1.4; max-width: 600px; min-height: 40px; }
   .hero-media-caption-text { position: absolute; left: 0; right: 0; top: 0; opacity: 0; transition: opacity 0.6s ease; }
   .hero-media-caption-text.active { opacity: 0.95; }
   .hero-media-caption-text::before { content: ""; display: inline-block; width: 24px; height: 1px; background: var(--accent-hover); vertical-align: middle; margin-right: 12px; margin-bottom: 3px; }
-  .hero-media-progress { position: absolute; bottom: 16px; left: 24px; right: 24px; display: flex; gap: 6px; z-index: 3; }
-  .hero-progress-bar { flex: 1; height: 2px; background: rgba(255,255,255,0.25); overflow: hidden; border-radius: 1px; }
+  .hero-media-progress { position: absolute; bottom: 12px; left: 24px; right: 24px; display: flex; gap: 6px; z-index: 3; }
+  .hero-progress-bar { flex: 1; height: 12px; padding: 5px 0; background: none; border: none; cursor: pointer; }
+  .hero-progress-bar > span { display: block; height: 2px; background: rgba(255,255,255,0.3); overflow: hidden; border-radius: 1px; }
+  .hero-progress-bar:hover > span { background: rgba(255,255,255,0.5); }
+  .hero-media-nav { position: absolute; top: 20px; right: 20px; display: flex; gap: 4px; z-index: 4; }
+  .hero-media.paused .hero-progress-bar.active .hero-progress-bar-fill { animation-play-state: paused; }
   .hero-progress-bar-fill { height: 100%; width: 0; background: #ffffff; transition: width 0.1s linear; }
   .hero-progress-bar.complete .hero-progress-bar-fill { width: 100%; }
   .hero-progress-bar.active .hero-progress-bar-fill { animation: progressFill 8s linear forwards; }
   @keyframes progressFill { from { width: 0; } to { width: 100%; } }
-  .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.32em; color: rgba(10,10,10,0.5); text-transform: uppercase; opacity: 0; animation: fadeUp 1s ease 1s forwards; z-index: 2; font-weight: 500; }
-  .hero-scroll::after { content: ""; display: block; width: 1px; height: 28px; background: rgba(10,10,10,0.5); margin: 10px auto 0; animation: scrollLine 2s ease-in-out infinite; opacity: 0.6; }
+  .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.32em; color: rgba(10,10,10,0.65); text-transform: uppercase; opacity: 0; animation: fadeUp 1s ease 1s forwards; z-index: 2; font-weight: 500; }
+  .hero-scroll::after { content: ""; display: block; width: 1px; height: 28px; background: rgba(10,10,10,0.65); margin: 10px auto 0; animation: scrollLine 2s ease-in-out infinite; opacity: 0.6; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes scrollLine { 0%, 100% { transform: scaleY(1); transform-origin: top; opacity: 0.4; } 50% { transform: scaleY(1.4); opacity: 1; } }
 
@@ -112,7 +143,7 @@
   .section-label { display: flex; align-items: center; gap: 16px; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 48px; font-weight: 600; }
   section.light .section-label, section.cream .section-label { color: var(--text-dark-dim); }
   .section-label .num { color: var(--accent-purple-light); font-weight: 700; }
-  section.light .section-label .num, section.cream .section-label .num { color: var(--accent-purple); }
+  section.light .section-label .num, section.cream .section-label .num, .work-section .section-label .num { color: var(--accent-purple); }
   .section-label::after { content: ""; flex: 1; height: 1px; background: var(--rule); max-width: 200px; }
   section.light .section-label::after, section.cream .section-label::after { background: var(--rule-dark); }
   .section-title { font-size: clamp(34px, 5.2vw, 68px); font-weight: 800; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 32px; max-width: 900px; }
@@ -134,13 +165,10 @@
   /* WHAT WE DO — bigger tiles, purple hover */
   .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule-dark); border: 1px solid var(--rule-dark); margin-top: 24px; }
   @media (max-width: 860px) { .services { grid-template-columns: 1fr; } }
-  .service { background: var(--bg-cream); padding: 64px 48px; transition: background 0.4s ease, color 0.4s ease; position: relative; cursor: default; }
-  .service:hover { background: var(--accent); color: var(--text); }
-  .service:hover .service-num { color: #ffffff; }
-  .service:hover .service-desc { color: rgba(255,255,255,0.9); }
-  .service-num { font-size: 12px; color: var(--accent-purple); letter-spacing: 0.2em; margin-bottom: 28px; font-weight: 600; transition: color 0.4s ease; }
+  .service { background: var(--bg-cream); padding: 64px 48px; position: relative; }
+  .service-num { font-size: 12px; color: var(--accent-purple); letter-spacing: 0.2em; margin-bottom: 28px; font-weight: 600; }
   .service-title { font-size: 30px; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.015em; line-height: 1.1; }
-  .service-desc { font-size: 16px; line-height: 1.6; color: var(--text-dark-dim); font-weight: 400; transition: color 0.4s ease; }
+  .service-desc { font-size: 16px; line-height: 1.6; color: var(--text-dark-dim); font-weight: 400; }
 
   /* WHY — bigger box text */
   .why-section { background: radial-gradient(ellipse 80% 60% at 10% 10%, rgba(123,44,191,0.13) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 90% 100%, rgba(123,44,191,0.07) 0%, transparent 55%), var(--bg-warm); position: relative; overflow: hidden; }
@@ -167,7 +195,8 @@
   /* CAROUSEL */
   .case-media { position: relative; min-height: 380px; background: #000; overflow: hidden; }
   .carousel-track { position: relative; width: 100%; height: 100%; min-height: 380px; }
-  .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; background-size: cover; background-position: center; }
+  .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; }
+  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .carousel-slide.active { opacity: 1; }
   .carousel-controls { position: absolute; bottom: 20px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 3; }
   .carousel-dots { display: flex; gap: 8px; }
@@ -185,15 +214,14 @@
     .case-body { padding: 48px 32px; }
     .case-body::before { left: 32px; top: 48px; }
   }
-  .case-meta { display: flex; gap: 16px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 32px; padding-top: 12px; font-weight: 500; }
+  .case-meta { display: flex; gap: 16px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.62); margin-bottom: 32px; padding-top: 12px; font-weight: 500; }
   .case-meta span { position: relative; }
   .case-meta span + span::before { content: ""; position: absolute; left: -10px; top: 50%; width: 2px; height: 2px; background: var(--accent-purple-light); border-radius: 50%; }
   .case-client { font-size: 13px; color: var(--accent-purple-light); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 18px; font-weight: 600; }
   .case-title { font-size: clamp(30px, 3.2vw, 42px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
   .case-desc { font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.75); margin-bottom: 40px; font-weight: 400; }
   .case-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .case-tag { font-size: 12px; padding: 7px 16px; border: 1px solid var(--rule); border-radius: 100px; letter-spacing: 0.08em; color: rgba(255,255,255,0.75); transition: all 0.2s ease; font-weight: 500; }
-  .case-tag:hover { border-color: var(--accent-purple-light); color: var(--accent-purple-light); }
+  .case-tag { font-size: 12px; padding: 7px 16px; border: 1px solid var(--rule); border-radius: 100px; letter-spacing: 0.08em; color: rgba(255,255,255,0.75); font-weight: 500; }
 
   /* PLACEHOLDER CASE STUDIES — content gaps for the team to fill. Delete this block once real content is in. */
   .case.placeholder { background: repeating-linear-gradient(135deg, #111 0, #111 14px, #161616 14px, #161616 28px); outline: 2px dashed rgba(123,44,191,0.7); outline-offset: -2px; }
@@ -205,7 +233,7 @@
   .placeholder-media-inner span { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.6); font-weight: 400; }
   .placeholder-flag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: #fff; background: var(--accent); padding: 6px 12px; border-radius: 100px; margin-bottom: 28px; }
   .case.placeholder .case-body::before { display: none; }
-  .case.placeholder .case-title, .case.placeholder .case-client, .case.placeholder .case-desc { color: rgba(255,255,255,0.45); }
+  .case.placeholder .case-title, .case.placeholder .case-client, .case.placeholder .case-desc { color: rgba(255,255,255,0.62); }
   .case.placeholder .case-title { font-weight: 500; }
 
   /* THINKING — matched sizing */
@@ -218,7 +246,7 @@
   .thought-card:hover::after { width: 100%; }
   .thought-cat { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-purple-light); margin-bottom: 28px; font-weight: 600; }
   .thought-title { font-size: 22px; font-weight: 700; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.01em; }
-  .thought-meta { font-size: 13px; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; font-weight: 500; }
+  .thought-meta { font-size: 13px; color: rgba(255,255,255,0.62); letter-spacing: 0.08em; font-weight: 500; }
   .coming-soon { background: rgba(20,20,20,0.5); border: 1px solid var(--rule); padding: 32px; margin-top: 40px; text-align: center; }
   .coming-soon p { font-size: 14px; color: var(--text-dim); letter-spacing: 0.04em; }
   .coming-soon a { color: var(--accent-purple-light); text-decoration: none; border-bottom: 1px solid var(--accent-purple-light); padding-bottom: 1px; font-weight: 500; }
@@ -248,14 +276,15 @@
   .footer-col li { margin-bottom: 10px; }
   .footer-col a { color: var(--text); text-decoration: none; font-size: 15px; transition: color 0.2s ease; font-weight: 400; }
   .footer-col a:hover { color: var(--accent-purple-light); }
-  .footer-bottom { padding-top: 32px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.45); flex-wrap: wrap; gap: 16px; }
-  .footer-bottom a { color: rgba(255,255,255,0.45); text-decoration: none; }
+  .footer-bottom { padding-top: 32px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.62); flex-wrap: wrap; gap: 16px; }
+  .footer-bottom a { color: rgba(255,255,255,0.62); text-decoration: none; }
   .footer-bottom a:hover { color: var(--accent-purple-light); }
 </style>
 </head>
 <body>
 
-<nav class="nav" id="nav">
+<a href="#main" class="skip-link">Skip to content</a>
+<nav class="nav" id="nav" aria-label="Main">
   <a href="#top" class="nav-logo"><img src="assets/logo-white.png" alt="Triad Retail"></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#who">Who we are</a></li>
@@ -264,49 +293,45 @@
     <li><a href="#work">Work</a></li>
     <li><a href="#contact" class="nav-cta">Get in touch</a></li>
   </ul>
-  <button class="nav-toggle" id="navToggle" aria-label="Menu">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
 </nav>
 
+<main id="main">
 <section class="hero" id="top">
   <div class="hero-inner">
     <div class="hero-text">
       <h1>Retail activations<br>designed for the <span class="pop">realities</span><br>of travel retail.</h1>
       <p class="hero-sub">Creative, digital and activation specialists helping brands win attention, drive conversion and grow sales in travel retail. For brands that need results, not just visibility.</p>
     </div>
-    <div class="hero-media" id="heroMedia">
-      <div class="hero-media-slide active" style="background-image: url('assets/hero-1.jpg');"></div>
-      <div class="hero-media-slide" style="background-image: url('assets/hero-2.jpg');"></div>
-      <div class="hero-media-slide" style="background-image: url('assets/hero-3.jpg');"></div>
-      <div class="hero-media-slide" style="background-image: url('assets/hero-4.jpg');"></div>
-      <div class="hero-media-slide" style="background-image: url('assets/hero-5.jpg');"></div>
-      <div class="hero-media-slide" style="background-image: url('assets/hero-6.jpg');"></div>
-      <div class="hero-media-slide" style="background-image: url('assets/hero-7.jpg');"></div>
-      <div class="hero-media-slide" style="background-image: url('assets/hero-8.jpg');"></div>
-      <div class="hero-media-caption">
-        <span class="hero-media-caption-text active">Laphroaig travel retail counter and gifting display</span>
-        <span class="hero-media-caption-text">Maker's Mark permanent visibility wallbay</span>
-        <span class="hero-media-caption-text">Laphroaig tasting activation in airport</span>
+    <div class="hero-media" id="heroMedia" role="region" aria-roledescription="carousel" aria-label="Selected work">
+      <div class="hero-media-slide active" role="group" aria-roledescription="slide" aria-label="1 of 5"><img src="assets/hero-3.webp" width="1600" height="1000" alt="Laphroaig tasting activation with travellers at an airport counter" fetchpriority="high" decoding="async"></div>
+      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="2 of 5"><img src="assets/hero-4.webp" width="1600" height="1000" alt="Maker's Mark immersive bourbon experience zone" loading="lazy" decoding="async"></div>
+      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="3 of 5"><img src="assets/hero-5.webp" width="1600" height="1000" alt="The House of Suntory premium island counter" loading="lazy" decoding="async"></div>
+      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="4 of 5"><img src="assets/hero-7.webp" width="1600" height="1000" alt="Bowmore Islay luxury travel retail showcase" loading="lazy" decoding="async"></div>
+      <div class="hero-media-slide" role="group" aria-roledescription="slide" aria-label="5 of 5"><img src="assets/hero-8.webp" width="1600" height="1000" alt="Suntory Time travel retail kiosk and display" loading="lazy" decoding="async"></div>
+      <div class="hero-media-nav">
+        <button class="carousel-btn hero-prev" aria-label="Previous image"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="carousel-btn hero-next" aria-label="Next image"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+      <div class="hero-media-caption" aria-live="polite">
+        <span class="hero-media-caption-text active">Laphroaig tasting activation in airport</span>
         <span class="hero-media-caption-text">Maker's Mark immersive bourbon experience zone</span>
         <span class="hero-media-caption-text">The House of Suntory premium island counter</span>
-        <span class="hero-media-caption-text">Suntory Time celebration of the spirits of Japan</span>
         <span class="hero-media-caption-text">Bowmore Islay luxury travel retail showcase</span>
         <span class="hero-media-caption-text">Suntory Time travel retail kiosk and display</span>
       </div>
       <div class="hero-media-progress">
-        <div class="hero-progress-bar active"><div class="hero-progress-bar-fill"></div></div>
-        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
-        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
-        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
-        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
-        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
-        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
-        <div class="hero-progress-bar"><div class="hero-progress-bar-fill"></div></div>
+        <button class="hero-progress-bar active" aria-label="Show image 1"><span><span class="hero-progress-bar-fill"></span></span></button>
+        <button class="hero-progress-bar" aria-label="Show image 2"><span><span class="hero-progress-bar-fill"></span></span></button>
+        <button class="hero-progress-bar" aria-label="Show image 3"><span><span class="hero-progress-bar-fill"></span></span></button>
+        <button class="hero-progress-bar" aria-label="Show image 4"><span><span class="hero-progress-bar-fill"></span></span></button>
+        <button class="hero-progress-bar" aria-label="Show image 5"><span><span class="hero-progress-bar-fill"></span></span></button>
       </div>
     </div>
   </div>
-  <div class="hero-scroll">Scroll</div>
+  <div class="hero-scroll" aria-hidden="true">Scroll</div>
 </section>
 
 <section id="who">
@@ -369,18 +394,18 @@
     <div class="case-grid">
 
       <article class="case">
-        <div class="case-media" data-carousel>
+        <div class="case-media" data-carousel role="region" aria-roledescription="carousel" aria-label="Maker's Mark project images">
           <div class="carousel-track">
-            <div class="carousel-slide active" style="background-image: url('assets/case-makers-mark-1.jpg');"></div>
-            <div class="carousel-slide" style="background-image: url('assets/case-makers-mark-2.jpg');"></div>
-            <div class="carousel-slide" style="background-image: url('assets/case-makers-mark-3.jpg');"></div>
+            <div class="carousel-slide active"><img src="assets/case-makers-mark-1.webp" width="1344" height="896" alt="Maker's Mark bottle and bourbon cocktails against the Deliciously Balanced Flavor backdrop" loading="lazy" decoding="async"></div>
+            <div class="carousel-slide"><img src="assets/case-makers-mark-2.webp" width="1344" height="896" alt="Maker's Mark activation counter and bottle display in the Frankfurt Airport duty free store" loading="lazy" decoding="async"></div>
+            <div class="carousel-slide"><img src="assets/case-makers-mark-3.webp" width="1344" height="896" alt="Maker's Mark Great Flavor signage and From Kentucky to Frankfurt bottle display" loading="lazy" decoding="async"></div>
           </div>
-          <div class="carousel-counter"><span class="cur">1</span> / <span class="tot">3</span></div>
+          <div class="carousel-counter" aria-live="polite"><span class="cur">1</span> / <span class="tot">3</span></div>
           <div class="carousel-controls">
             <div class="carousel-dots"></div>
             <div class="carousel-nav">
-              <button class="carousel-btn prev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
-              <button class="carousel-btn next" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+              <button class="carousel-btn prev" aria-label="Previous image"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="carousel-btn next" aria-label="Next image"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
             </div>
           </div>
         </div>
@@ -403,7 +428,7 @@
       <article class="case placeholder reverse">
         <div class="case-media">
           <div class="placeholder-media-inner">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><rect x="3" y="4" width="18" height="16" rx="1"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="1.2"><rect x="3" y="4" width="18" height="16" rx="1"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg>
             <strong>Images needed</strong>
             <span>3 to 4 landscape photos of the finished installation, ideally 1600 × 1000px or larger, JPG.</span>
           </div>
@@ -428,7 +453,7 @@
       <article class="case placeholder">
         <div class="case-media">
           <div class="placeholder-media-inner">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><rect x="3" y="4" width="18" height="16" rx="1"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="1.2"><rect x="3" y="4" width="18" height="16" rx="1"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg>
             <strong>Images needed</strong>
             <span>3 to 4 landscape photos of the finished installation, ideally 1600 × 1000px or larger, JPG.</span>
           </div>
@@ -470,6 +495,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <footer class="footer">
   <div class="container">
@@ -491,38 +517,62 @@
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); });
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
-  toggle.addEventListener('click', () => links.classList.toggle('open'));
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+  toggle.addEventListener('click', () => { const open = links.classList.toggle('open'); toggle.setAttribute('aria-expanded', open); });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { links.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }));
 
-  // Hero auto-playing image carousel
+  // Hero carousel: auto plays, with previous/next, clickable progress bars, pause on hover/focus
   (function initHeroCarousel() {
     const heroMedia = document.getElementById('heroMedia');
     if (!heroMedia) return;
     const slides = heroMedia.querySelectorAll('.hero-media-slide');
     const captions = heroMedia.querySelectorAll('.hero-media-caption-text');
     const bars = heroMedia.querySelectorAll('.hero-progress-bar');
-    let current = 0;
     const SLIDE_MS = 8000;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0, timer = null, startedAt = 0, remaining = SLIDE_MS, paused = false;
 
-    function advance() {
-      const next = (current + 1) % slides.length;
-      slides[current].classList.remove('active');
-      slides[next].classList.add('active');
-      if (captions[current]) captions[current].classList.remove('active');
-      if (captions[next]) captions[next].classList.add('active');
-      bars[current].classList.remove('active');
-      bars[current].classList.add('complete');
-      // Reset all bars when starting a new cycle
-      if (next === 0) {
-        bars.forEach(b => { b.classList.remove('complete'); b.classList.remove('active'); });
-        // Force reflow so animation restarts cleanly
-        void bars[0].offsetWidth;
-      }
-      bars[next].classList.add('active');
-      current = next;
+    function render() {
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+      captions.forEach((c, i) => c.classList.toggle('active', i === current));
+      bars.forEach((b, i) => {
+        b.classList.remove('active', 'complete');
+        if (i < current) b.classList.add('complete');
+        if (i === current) { void b.offsetWidth; b.classList.add('active'); }
+      });
     }
+    function schedule(ms) {
+      clearTimeout(timer);
+      if (reduceMotion) return;
+      startedAt = Date.now(); remaining = ms;
+      timer = setTimeout(() => go(current + 1), ms);
+    }
+    function go(i) {
+      current = (i + slides.length) % slides.length;
+      render();
+      schedule(SLIDE_MS);
+    }
+    heroMedia.querySelector('.hero-prev').addEventListener('click', () => go(current - 1));
+    heroMedia.querySelector('.hero-next').addEventListener('click', () => go(current + 1));
+    bars.forEach((b, i) => b.addEventListener('click', () => go(i)));
 
-    setInterval(advance, SLIDE_MS);
+    function pause() {
+      if (paused || reduceMotion) return;
+      paused = true; heroMedia.classList.add('paused');
+      clearTimeout(timer); remaining = Math.max(500, remaining - (Date.now() - startedAt));
+    }
+    function resume() {
+      if (!paused) return;
+      paused = false; heroMedia.classList.remove('paused');
+      schedule(remaining);
+    }
+    heroMedia.addEventListener('mouseenter', pause);
+    heroMedia.addEventListener('mouseleave', resume);
+    heroMedia.addEventListener('focusin', pause);
+    heroMedia.addEventListener('focusout', resume);
+    document.addEventListener('visibilitychange', () => document.hidden ? pause() : resume());
+
+    if (reduceMotion) bars.forEach(b => b.classList.remove('active'));
+    schedule(SLIDE_MS);
   })();
 
   document.querySelectorAll('[data-carousel]').forEach(carousel => {

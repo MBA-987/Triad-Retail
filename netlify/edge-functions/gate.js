@@ -30,8 +30,8 @@ function getCookie(request, name) {
 export default async (request, context) => {
   const url = new URL(request.url);
 
-  // Let the logo and image files through (needed by the landing page itself).
-  if (url.pathname.startsWith("/assets/")) return context.next();
+  // Let the logo and image files through (needed by the landing page itself), plus robots.txt.
+  if (url.pathname.startsWith("/assets/") || url.pathname === "/robots.txt") return context.next();
 
   const token = await tokenFor(PASSWORD);
 
